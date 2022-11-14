@@ -13,19 +13,6 @@ go to the directory \<stable-diffusion-webui project path\>/extensions and run c
 
 This script will generate a grid of images with different parts of the prompt removed. This can be used to find out what each part does to the image.
 
-![image](images/prompt-puncher.png)
-
-### Example prompt
-    sports car, Porsche, masterpiece, best quality, epic lighting
-    Negative prompt: text, b&w, weird colors, (cartoon, 3d, bad art, poorly drawn, close up, blurry, disfigured, deformed, extra limbs:1.5)
-    Steps: 30, Sampler: DPM++ 2M Karras, CFG scale: 5, Seed: 1960802277, Size: 768x512
-
-![image](images/prompt-puncher-example.png)
-
-## Prompt puncher
-
-This script will generate a grid of images with different parts of the prompt increased in strength. This can be used to find out what each part does to the image.
-
 ![image](images/prompt-reducer.png)
 
 ### Example prompt
@@ -34,3 +21,16 @@ This script will generate a grid of images with different parts of the prompt in
     Steps: 30, Sampler: DPM++ 2M Karras, CFG scale: 5, Seed: 1960802277, Size: 768x512
 
 ![image](images/prompt-reducer-example.png)
+
+## Prompt puncher
+
+This script will generate a grid of images with different parts of the prompt increased in strength. This can be used to find out what each part does to the image.
+
+![image](images/prompt-puncher.png)
+
+### Example prompt
+    sports car, Porsche, masterpiece, best quality, epic lighting
+    Negative prompt: text, b&w, weird colors, (cartoon, 3d, bad art, poorly drawn, close up, blurry, disfigured, deformed, extra limbs:1.5)
+    Steps: 30, Sampler: DPM++ 2M Karras, CFG scale: 5, Seed: 1960802277, Size: 768x512
+
+![image](images/prompt-puncher-example.png)
