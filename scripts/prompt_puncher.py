@@ -61,13 +61,17 @@ class Script(scripts.Script):
         negative_prompts = splitPrompt(original_negative_prompt, skip=skip_first_negatives, include_base=positives == False)
         p.do_not_save_grid = True
         state.job_count = 0
+        permutations = 0
         
         if positives:
             state.job_count += len(prompts) * p.n_iter
+            permutations += len(prompts)
         
         if negatives:
             state.job_count += len(negative_prompts) * p.n_iter
-
+            permutations += len(negative_prompts)
+            
+        print(f"Creating {permutations} image permutations")
         image_results = []
         all_prompts = []
         infotexts = []
