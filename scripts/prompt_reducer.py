@@ -77,9 +77,6 @@ class Script(scripts.Script):
                 all_prompts += proc.all_prompts
                 infotexts += proc.infotexts
 
-                if opts.grid_save:
-                    images.save_image(temp_grid, p.outpath_grids, "grid", grid=True, p=copy_p)
-
         if negatives:
             for negative_prompt in negative_prompts:
                 copy_p = copy.copy(p)
@@ -94,14 +91,9 @@ class Script(scripts.Script):
                 all_prompts += proc.all_prompts
                 infotexts += proc.infotexts
 
-                if opts.grid_save:
-                    images.save_image(temp_grid, p.outpath_grids, "grid", grid=True, p=copy_p)
-
         grid = images.image_grid(image_results, p.batch_size)
         all_prompts.insert(0, p.prompt)
         image_results.insert(0, grid)
-
-        if opts.grid_save:
-            images.save_image(grid, p.outpath_grids, "grid", grid=True, p=p)
+        images.save_image(grid, p.outpath_grids, "grid", grid=True, p=p)
 
         return Processed(p, image_results, p.seed, "", all_prompts=all_prompts, infotexts=infotexts)
