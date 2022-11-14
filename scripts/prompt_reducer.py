@@ -46,7 +46,7 @@ def write_on_image(img, msg):
     fontsize=24
     draw = ImageDraw.Draw(img)
     font = ImageFont.truetype(Roboto, fontsize)
-    text_height=iy-60
+    text_height=iy-40
     tx = draw.textbbox((0,0),msg,font)
     draw.text((int((ix-tx[2])/2),text_height+margin),msg,(0,0,0),font=font)
     draw.text((int((ix-tx[2])/2),text_height-margin),msg,(0,0,0),font=font)
