@@ -104,7 +104,7 @@ class Script(scripts.Script):
                 infotexts += proc.infotexts
 
         grid = images.image_grid(image_results, p.batch_size)
-        all_prompts.insert(0, p.prompt)
+        infotexts.insert(0, infotexts[0])
         image_results.insert(0, grid)
         images.save_image(grid, p.outpath_grids, "grid", grid=True, p=p)
 
