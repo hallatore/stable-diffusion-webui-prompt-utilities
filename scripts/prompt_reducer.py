@@ -4,12 +4,12 @@ import re
 import modules.scripts as scripts
 import gradio as gr
 
+from PIL import ImageFont, ImageDraw
+from fonts.ttf import Roboto
 from modules import images
 from modules.processing import Processed, process_images
 from modules.shared import state, opts
 import modules.sd_samplers
-
-original_label = "ORIGINAL"
 
 def trimPrompt(prompt):
     prompt = prompt.replace(", :", ":")
@@ -24,7 +24,7 @@ def splitPrompt(prompt, skip=0, include_base=True):
     prompts = []
 
     if include_base:
-        prompts.append([original_label, prompt])
+        prompts.append(["", prompt])
 
     matches = list(re.finditer(pattern, prompt))
 
@@ -37,6 +37,23 @@ def splitPrompt(prompt, skip=0, include_base=True):
             prompts.append([m.group(1), trimPrompt(prompt.replace(m.group(0), ''))])
     
     return prompts
+
+# This is a modified version of code from https://github.com/Extraltodeus/test_my_prompt/blob/main/test_my_prompt_custom_script.py
+def write_on_image(img, msg):
+    ix,iy = img.size
+    draw = ImageDraw.Draw(img)
+    margin=2
+    fontsize=24
+    draw = ImageDraw.Draw(img)
+    font = ImageFont.truetype(Roboto, fontsize)
+    text_height=iy-60
+    tx = draw.textbbox((0,0),msg,font)
+    draw.text((int((ix-tx[2])/2),text_height+margin),msg,(0,0,0),font=font)
+    draw.text((int((ix-tx[2])/2),text_height-margin),msg,(0,0,0),font=font)
+    draw.text((int((ix-tx[2])/2+margin),text_height),msg,(0,0,0),font=font)
+    draw.text((int((ix-tx[2])/2-margin),text_height),msg,(0,0,0),font=font)
+    draw.text((int((ix-tx[2])/2),text_height), msg,(255,255,255),font=font)
+    return img
 
 
 class Script(scripts.Script):
@@ -82,8 +99,7 @@ class Script(scripts.Script):
 
                 proc = process_images(copy_p)
                 temp_grid = images.image_grid(proc.images, p.batch_size)
-                annotation = f"({original_label})" if prompt[0] == original_label else f"-({prompt[0]})"
-                temp_grid = images.draw_grid_annotations(temp_grid, temp_grid.width, temp_grid.height, hor_texts=[[images.GridAnnotation(annotation, is_active=True)]], ver_texts=[[images.GridAnnotation()]])
+                temp_grid = write_on_image(temp_grid, "" if prompt[0] == "" else f"-{prompt[0]}")
                 image_results.append(temp_grid)
 
                 all_prompts += proc.all_prompts
@@ -96,8 +112,7 @@ class Script(scripts.Script):
 
                 proc = process_images(copy_p)
                 temp_grid = images.image_grid(proc.images, p.batch_size)
-                annotation = f"({original_label})" if negative_prompt[0] == original_label else f"-(!{negative_prompt[0]})"
-                temp_grid = images.draw_grid_annotations(temp_grid, temp_grid.width, temp_grid.height, hor_texts=[[images.GridAnnotation(annotation, is_active=True)]], ver_texts=[[images.GridAnnotation()]])
+                temp_grid = write_on_image(temp_grid, "" if negative_prompt[0] == "" else f"-!{negative_prompt[0]}")
                 image_results.append(temp_grid)
 
                 all_prompts += proc.all_prompts
