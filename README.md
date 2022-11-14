@@ -7,11 +7,15 @@ This is a set of utilities for the stable-diffusion-webui.
 
 This script will generate a grid of images with different parts of the prompt removed. This can be used to find out what each part does to the image.
 
+![image](images/prompt-puncher.png)
+
 ![image](https://imgsli.com/i/a51312b7-720e-4112-94dd-fe2333c5bb83.jpg)
 
 ## Prompt puncher
 
 This script will generate a grid of images with different parts of the prompt increased in strength. This can be used to find out what each part does to the image.
+
+![image](images/prompt-reducer.png)
 
 ![image](https://imgsli.com/i/f24d4b9d-e9b7-456f-86da-211690c44743.jpg)
 
